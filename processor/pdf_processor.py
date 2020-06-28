@@ -31,6 +31,9 @@ def move_to_ingested_folder(filepath):
 def process():
 
     try:
+        print(PDF_DIR)
+        fileName = PDF_DIR + "Archive Final Package/Archive 2018 - By Week/English/TEST-18-0038-ENG-arab-iranian-and-turkish-responses-to-president-trumps-impeachment-en-06022018.pdf"
+        print(open(fileName, 'rb').read())
         for filepath in glob.iglob(PDF_DIR + '**/**', recursive=True):
             if os.path.isfile(filepath):
                 data = open(filepath, 'rb').read()
