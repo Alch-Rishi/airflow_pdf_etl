@@ -39,6 +39,9 @@ def process():
         # print(open(fileName, 'rb').read())
         for filepath in glob.iglob(PDF_DIR + '**/**', recursive=True):
             if os.path.isfile(filepath):
+                print("\n\n----FILE-----")
+                print(filepath)
+                print("--------------")
                 data = open(filepath, 'rb').read()
 
                 json_data = convert_to_json(data)
