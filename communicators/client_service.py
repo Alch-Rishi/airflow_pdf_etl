@@ -31,7 +31,7 @@ def parse_through_tika(payload):
         sts_cd = response.status_code
         print("\n\n\n----- TIKA response--------")
         print(response.content)
-        print(json.text)
+        print(response.text)
         print(json.loads(response.text))
         print(response)
         tika_response = response.text
