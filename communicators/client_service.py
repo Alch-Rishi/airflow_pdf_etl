@@ -31,6 +31,7 @@ def parse_through_tika(payload):
         sts_cd = response.status_code
         print("\n\n\n----- TIKA response--------")
         print(response.content)
+        print(json.loads(response.text))
         print(response)
         tika_response = response.json()
         if sts_cd in range(200, 300):
