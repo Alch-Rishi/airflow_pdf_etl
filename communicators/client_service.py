@@ -11,6 +11,9 @@ def publish_to_es(payload):
         response = requests.post(url, data=payload, timeout=ELASTICSEARCH['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
+        print("\n\n\n----- TIKA response--------")
+        print(response.content)
+        print(response)
         elastic_response = response.json()
         if sts_cd in range(200, 300):
             print("-------------------------------")

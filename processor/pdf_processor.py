@@ -5,10 +5,6 @@ from communicators.client_service import parse_through_tika, publish_to_es
 import os, shutil
 import glob
 
-import tika
-tika.initVM()
-from tika import parser
-
 def convert_to_json(data):
 
     tika_response = parse_through_tika(data)
@@ -45,8 +41,7 @@ def process():
             if os.path.isfile(filepath):
                 print("\n\n----FILE-----")
                 print(filepath)
-                parsed = parser.from_file(filepath)
-                print("--------------")
+                print("------")
                 data = open(filepath, 'rb').read()
 
                 json_data = convert_to_json(data)

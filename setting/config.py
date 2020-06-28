@@ -14,7 +14,8 @@ ELASTICSEARCH = {
 TIKA_SERVER = {
     "URL": "http://localhost:9998/tika",
     "HEADERS": {
-        'Content-type': 'application/pdf'
+        'Content-type': 'application/pdf',
+        'Accept': 'application/json'
     },
     "TIMEOUT": 10
 }
