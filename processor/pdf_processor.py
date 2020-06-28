@@ -11,8 +11,9 @@ def convert_to_json(data):
 
     if not tika_response['status']:
         raise Exception(tika_response['error'])
-
+    print("\n\n\n-------TIKA--------------")
     print(tika_response['data'])
+    print("\n\n\n")
     return tika_response['data']
 
 def push_to_es(json_data):
@@ -22,7 +23,9 @@ def push_to_es(json_data):
     if not es_response['status']:
         raise Exception(es_response['error'])
 
+    print("\n\n\n\n--------ES------------")
     print(es_response)
+    print("\n\n\n")
 
 def move_to_ingested_folder(filepath):
 
@@ -33,7 +36,7 @@ def process():
     try:
         print(PDF_DIR)
         fileName = PDF_DIR + "/Archive Final Package/Archive 2018 - By Week/English/TEST-18-0038-ENG-arab-iranian-and-turkish-responses-to-president-trumps-impeachment-en-06022018.pdf"
-        print(open(fileName, 'rb').read())
+        # print(open(fileName, 'rb').read())
         for filepath in glob.iglob(PDF_DIR + '**/**', recursive=True):
             if os.path.isfile(filepath):
                 data = open(filepath, 'rb').read()
