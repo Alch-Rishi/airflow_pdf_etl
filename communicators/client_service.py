@@ -25,7 +25,7 @@ def publish_to_es(payload):
 def parse_through_tika(payload):
 
     try:
-        url = TIKA_SERVER['URL']
+        url = TIKA_SERVER['URL']+"/tika"
         response = requests.put(url, data=payload, headers=TIKA_SERVER['HEADERS'], timeout=TIKA_SERVER['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
