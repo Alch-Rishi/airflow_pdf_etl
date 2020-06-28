@@ -11,7 +11,7 @@ def publish_to_es(payload):
         response = requests.post(url, data=payload, timeout=ELASTICSEARCH['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
-        print("\n\n\n----- TIKA response--------")
+        print("\n\n\n----- Es response--------")
         print(response.content)
         print(response)
         elastic_response = response.json()
@@ -29,6 +29,9 @@ def parse_through_tika(payload):
         response = requests.put(url, data=payload, headers=TIKA_SERVER['HEADERS'], timeout=TIKA_SERVER['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
+        print("\n\n\n----- TIKA response--------")
+        print(response.content)
+        print(response)
         tika_response = response.json()
         if sts_cd in range(200, 300):
             print("-------------------------------")
