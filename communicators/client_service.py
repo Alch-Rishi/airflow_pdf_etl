@@ -30,12 +30,12 @@ def parse_through_tika(payload):
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
         print("\n\n\n----- TIKA response--------")
-        print(response.content)
-        print(response.text)
+        print("1 " + response.content)
+        print("2 " + response.text)
         print("---")
-        print(json.loads(response.text))
+        print("3 " + json.loads(response.text))
         print("----")
-        print(response)
+        print("4 " + response)
         tika_response = json.loads(response.text)
         if sts_cd in range(200, 300):
             print("-------------------------------")
