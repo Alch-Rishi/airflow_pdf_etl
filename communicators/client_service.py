@@ -8,7 +8,7 @@ def publish_to_es(payload):
 
     try:
         url = ELASTICSEARCH['URL'] + '/' + ELASTICSEARCH['INDEX'] + '/' + ELASTICSEARCH['DOC_TYPE']
-        response = requests.post(url, data=payload, timeout=ELASTICSEARCH['TIMEOUT']) 
+        response = requests.post(url, data=json.dumps(payload), timeout=ELASTICSEARCH['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
         print("\n\n\n----- Es response--------")
@@ -22,20 +22,28 @@ def publish_to_es(payload):
     except Exception as error:
         return {'status': False, 'error': "Elastic search error {}".format(error)}
 
-def parse_through_tika(payload):
+def get_tika_content(payload):
 
     try:
-        url = TIKA_SERVER['URL']+"/tika"
-        response = requests.put(url, data=payload, headers=TIKA_SERVER['HEADERS'], timeout=TIKA_SERVER['TIMEOUT']) 
+        url = TIKA_SERVER['URL'] + '/content'
+        response = requests.put(url, data=payload, headers=TIKA_SERVER['CONTENT_HEADERS'], timeout=TIKA_SERVER['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
-        print("\n\n\n----- TIKA response--------")
-        print("1 " + str(response.content))
-        print("2 " + str(response.text))
-        print("---")
-        print("3 " + str(json.loads(response.text)))
-        print("----")
-        print("4 " + str(response))
+        tika_response = response.text
+        if sts_cd in range(200, 300):
+            print("-------------------------------")
+            return {'status': True, 'data': tika_response}
+        return {'status': False, 'error': tika_response}
+    except Exception as error:
+        return {'status': False, 'error': "Tika server error {}".format(error)}
+
+def get_tika_metadeta(payload):
+
+    try:
+        url = TIKA_SERVER['URL'] + "/meta"
+        response = requests.put(url, data=payload, headers=TIKA_SERVER['META_HEADERS'], timeout=TIKA_SERVER['TIMEOUT']) 
+        print("Response time " + str(response.elapsed.total_seconds()))
+        sts_cd = response.status_code
         tika_response = json.loads(response.text)
         if sts_cd in range(200, 300):
             print("-------------------------------")
