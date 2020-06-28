@@ -16,5 +16,5 @@ TIKA_SERVER = {
     "HEADERS": {
         'Content-type': 'application/pdf'
     },
-    "TIMOUT": 10
+    "TIMEOUT": 10
 }
