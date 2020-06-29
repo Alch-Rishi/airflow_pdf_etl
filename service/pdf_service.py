@@ -89,7 +89,7 @@ def move_to_ingested_folder(filepath):
 
     mv_dir = "_".join(str(datetime.now()).split())
     os.system("mkdir " + INGESTED_DIR + "/" + mv_dir)
-    os.system("/usr/bin/mv "+ str(filepath) +" "+ INGESTED_DIR + "/" + mv_dir + "/")
+    os.system("/bin/mv "+ str(filepath) +" "+ INGESTED_DIR + "/" + mv_dir + "/")
 
 def process():
 

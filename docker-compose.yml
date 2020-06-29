@@ -4,14 +4,15 @@ services:
     image: puckel/docker-airflow:latest
     restart: always
     mem_limit: 2048m
-    entrypoint: /usr/local/airflow/dags/entrypoint.sh
+    entrypoint: /usr/local/airflow/entrypoint.sh
     env_file:
       - .env
     environment:
       - LOAD_EX=n
       - EXECUTOR=Local
     volumes:
-      - .:/usr/local/airflow/dags
+      - /root/airflow_perosnal/airflow_pdf_etl/dags:/usr/local/airflow/dags
+      - /root/airflow_perosnal/airflow_pdf_etl:/usr/local/airflow
       - ./requirements.txt:/requirements.txt
     ports:
       - "8080:8080"

@@ -1,5 +1,5 @@
 
-ROOT_DIR = "/usr/local/airflow/dags"
+ROOT_DIR = "/usr/local/airflow"
 PDF_DIR = ROOT_DIR + "/data"
 # PDF_DIR = "/root/test"
 INGESTED_DIR = ROOT_DIR + "/ingested_data"

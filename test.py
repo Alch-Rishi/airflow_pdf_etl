@@ -1,3 +1,4 @@
 from service.pdf_service import process
-
-print (process())
+def run_process():
+    print (process())
+run_process()
