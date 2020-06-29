@@ -1,26 +1,22 @@
+from airflow import DAG
+from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
 
-
-from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
-
-
-from service.pdf_service import process
-
 default_args = {
+    'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime.now(),
-    'retries': 3,
-    'retry_delay': timedelta(seconds=5),
-    'catchup': False
+    'start_date': datetime(2018, 1, 1),
+    'email_on_failure': False,
+    'email_on_retry': False,
+    'retries': 1,
+    'retry_delay': timedelta(minutes=5),
 }
 
-with DAG(   dag_id='core-dag',
-            default_args=default_args,
-            schedule_interval='*/30 * * * *', ) as dag:
-            parse_operator = PythonOperator(
-            task_id='parse_files',
-            provide_context=True,
-            python_callable=process,
-            dag=dag,
-        )
+dag = DAG('example_dag_one',
+            schedule_interval='@daily',
+            default_args=default_args)
+
+t1 = BashOperator(
+    task_id='print_date1',
+    bash_command='/usr/local/bin/python /usr/local/airflow/dags/test.py',
+    dag=dag)
