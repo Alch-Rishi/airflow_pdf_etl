@@ -1,7 +1,7 @@
 
 ROOT_DIR = "/root/airflow_perosnal/airflow_pdf_etl"
-# PDF_DIR = ROOT_DIR + "/data"
-PDF_DIR = "/root/test"
+PDF_DIR = ROOT_DIR + "/data"
+# PDF_DIR = "/root/test"
 INGESTED_DIR = ROOT_DIR + "/ingested_data"
 ERROR_ON_INGESTION_DIR = ROOT_DIR + "/error_on_ingestion"
 
