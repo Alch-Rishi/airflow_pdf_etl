@@ -20,10 +20,12 @@ services:
       - LOAD_EX=n
       - EXECUTOR=Local
     volumes:
-      - ./dags:/usr/local/airflow/dags
+      - .:/usr/local/airflow/dags
       - ./requirements.txt:/requirements.txt
     ports:
       - "8080:8080"
+    networks:
+    - mynet
     command: webserver
     depends_on:
       - tikaserver
@@ -33,10 +35,9 @@ services:
       timeout: 30s
       retries: 3
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
     environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
+      - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
@@ -44,7 +45,16 @@ services:
         hard: -1
     ports:
       - "9200:9200"
+    networks:
+    - mynet
   tikaserver:
     image: logicalspark/docker-tikaserver
     ports:
       - "9998:9998"
+    networks:
+    - mynet
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      driver: default
