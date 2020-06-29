@@ -28,7 +28,7 @@ def convert_to_json(data, filepath):
     metadata = parsed['meta']
     #dict_list.append(metadata)
 
-    quick_path = filepath.replace(PDF_DIR, '/')
+    quick_path = filepath.replace(PDF_DIR, '')
     product_dict['Product Type'] = quick_path.split('/')[1]
 
     if 'Author' in metadata:
