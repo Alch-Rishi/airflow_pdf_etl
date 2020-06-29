@@ -13,7 +13,7 @@ default_args = {
 }
 
 dag = DAG('example_dag_one',
-            schedule_interval='@daily',
+            schedule_interval='* * * * *',
             default_args=default_args)
 
 t1 = BashOperator(
