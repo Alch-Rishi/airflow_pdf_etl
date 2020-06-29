@@ -48,7 +48,7 @@ def convert_to_json(data, filepath):
 #   else: 
 #       product_dict['Date Published'] = ''
     
-    product_dict['Date Published'] = datetime.utcnow()
+    product_dict['Date Published'] = datetime.now().isoformat()
         
     if 'title' in metadata:
         product_dict['Title'] = metadata['title']
