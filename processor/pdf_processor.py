@@ -4,7 +4,7 @@ from communicators.client_service import get_tika_content, get_tika_metadeta, pu
 
 
 from datetime import datetime
-import os, shutil
+import os, shutil, sys
 import glob
 import re
 
@@ -88,16 +88,21 @@ def push_to_es(json_data):
 
 def move_to_ingested_folder(filepath):
 
-    shutil.move(filepath, INGESTED_DIR)
+    shutil.move(filepath, INGESTED_DIR + "/")
 
 def process():
 
-    try:
-        for filepath in glob.iglob(PDF_DIR + '**/**', recursive=True):
-            if os.path.isfile(filepath):
-                print("\n\n----FILE-----")
-                print(filepath)
-                print("------")
+    files_on_error = []
+
+    print(sys.argv)
+
+    for filepath in glob.iglob(PDF_DIR + '**/**', recursive=True):
+        if os.path.isfile(filepath):
+            print("\n\n----FILE-----")
+            print(filepath)
+            print("------")
+
+            try: 
                 data = open(filepath, 'rb').read()
 
                 json_data = convert_to_json(data, filepath)
@@ -106,6 +111,9 @@ def process():
 
                 move_to_ingested_folder(filepath)
 
-    except Exception as e:
-        print(e)
-        raise Exception(e)
+            except Exception as e:
+                print(e)
+                files_on_error.append(filepath)
+    
+    if len(files_on_error) > 0:
+        raise Exception("Error occured for files:- " + ",".join(files_on_error))
