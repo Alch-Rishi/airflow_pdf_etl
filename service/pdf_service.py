@@ -88,7 +88,7 @@ def push_to_es(json_data):
 
 def move_to_ingested_folder(filepath):
 
-    shutil.move(filepath, INGESTED_DIR + "/")
+    os.system("move "+ str(filepath) +" "+ INGESTED_DIR + "/")
 
 def process():
 
