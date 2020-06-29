@@ -1,7 +1,7 @@
 from setting.config import ELASTICSEARCH, TIKA_SERVER
 import requests
 
-import json
+import json,sys
 
 
 def publish_to_es(payload):
@@ -26,10 +26,10 @@ def get_tika_content(payload):
 
     try:
         url = TIKA_SERVER['URL'] + '/tika'
-        response = requests.put(url, data=payload, headers=TIKA_SERVER['CONTENT_HEADERS'], timeout=TIKA_SERVER['TIMEOUT']) 
+        response = requests.put(url, data=payload,timeout=TIKA_SERVER['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
-        tika_response = response.text
+        tika_response = response.content.decode('utf8')
         if sts_cd in range(200, 300):
             print("-------------------------------")
             return {'status': True, 'data': tika_response}
