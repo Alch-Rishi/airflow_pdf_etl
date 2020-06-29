@@ -13,13 +13,12 @@ def convert_to_json(data, filepath):
     tika_response_content = get_tika_content(data)
     tika_response_meta = get_tika_metadeta(data)
 
-    print(tika_response_content)
-    print(tika_response_meta)
-
     if not tika_response_content['status']:
+        print(tika_response_content)
         raise Exception(tika_response_content['error'])
 
     if not tika_response_meta['status']:
+        print(tika_response_meta)
         raise Exception(tika_response_meta['error'])
 
     parsed = {'content':tika_response_content['data'], 'meta':tika_response_meta['data']}
