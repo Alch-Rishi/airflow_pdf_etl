@@ -1,3 +1,3 @@
-from processor.pdf_processor import process
+from service.pdf_service import process
 
 print (process())

@@ -1,6 +1,6 @@
 
 from setting.config import PDF_DIR, INGESTED_DIR, ERROR_ON_INGESTION_DIR
-from communicators.client_service import get_tika_content, get_tika_metadeta, publish_to_es
+from communicators.client import get_tika_content, get_tika_metadeta, publish_to_es
 
 
 from datetime import datetime
