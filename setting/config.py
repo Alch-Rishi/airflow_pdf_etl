@@ -8,6 +8,9 @@ ERROR_ON_INGESTION_DIR = ROOT_DIR + "/error_on_ingestion"
 
 ELASTICSEARCH = {
     "URL": "http://localhost:9200",
+    "HEADERS": {
+        "Content-type": "application/pdf"
+    },
     "INDEX": "test",
     "DOC_TYPE": "pdf",
     "TIMEOUT": 10
@@ -16,10 +19,10 @@ TIKA_SERVER = {
     "URL":"http://localhost:9998",
 
     "CONTENT_HEADERS": {
-        'Content-type': 'application/pdf'
+        "Content-type": "application/pdf"
     },
    "META_HEADERS": { 
-        'Content-type': 'application/json'
+        "Accept": "application/json"
     },
 
     "TIMEOUT": 10

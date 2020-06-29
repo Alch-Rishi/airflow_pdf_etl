@@ -8,7 +8,7 @@ def publish_to_es(payload):
 
     try:
         url = ELASTICSEARCH['URL'] + '/' + ELASTICSEARCH['INDEX'] + '/' + ELASTICSEARCH['DOC_TYPE']
-        response = requests.post(url, data=json.dumps(payload), timeout=ELASTICSEARCH['TIMEOUT']) 
+        response = requests.post(url, headers=ELASTICSEARCH['HEADERS'], data=json.dumps(payload), timeout=ELASTICSEARCH['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
         print("\n\n\n----- Es response--------")
