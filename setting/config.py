@@ -9,7 +9,7 @@ ERROR_ON_INGESTION_DIR = ROOT_DIR + "/error_on_ingestion"
 ELASTICSEARCH = {
     "URL": "http://localhost:9200",
     "HEADERS": {
-        "Content-type": "application/pdf"
+        "Content-type": "application/json"
     },
     "INDEX": "test",
     "DOC_TYPE": "pdf",

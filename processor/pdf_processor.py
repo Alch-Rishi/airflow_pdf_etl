@@ -13,13 +13,16 @@ def convert_to_json(data, filepath):
     tika_response_content = get_tika_content(data)
     tika_response_meta = get_tika_metadeta(data)
 
+    print(tika_response_content)
+    print(tika_response_meta)
+
     if not tika_response_content['status']:
         raise Exception(tika_response_content['error'])
 
     if not tika_response_meta['status']:
         raise Exception(tika_response_meta['error'])
 
-    parsed = {'content':tika_response_content['data'], 'meta':tika_response_content['data']}
+    parsed = {'content':tika_response_content['data'], 'meta':tika_response_meta['data']}
 
     product_dict = {}
     metadata = parsed['meta']
@@ -45,7 +48,7 @@ def convert_to_json(data, filepath):
 #   else: 
 #       product_dict['Date Published'] = ''
     
-    product_dict['Date Published'] = datetime.now()
+    product_dict['Date Published'] = str(datetime.now())
         
     if 'title' in metadata:
         product_dict['Title'] = metadata['title']
@@ -85,7 +88,8 @@ def push_to_es(json_data):
 
 def move_to_ingested_folder(filepath):
 
-    shutil.move(filepath, INGESTED_DIR)
+    print("MOVED")
+    # shutil.move(filepath, INGESTED_DIR)
 
 def process():
 
