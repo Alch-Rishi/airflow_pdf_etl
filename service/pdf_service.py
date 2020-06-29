@@ -87,7 +87,9 @@ def push_to_es(json_data):
 
 def move_to_ingested_folder(filepath):
 
-    os.system("move "+ str(filepath) +" "+ INGESTED_DIR + "/")
+    mv_dir = "_".join(str(datetime.now()).split())
+    os.system("mkdir " + INGESTED_DIR + "/" + mv_dir)
+    os.system("move "+ str(filepath) +" "+ INGESTED_DIR + "/" + mv_dir + "/")
 
 def process():
 
