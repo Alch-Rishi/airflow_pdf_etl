@@ -20,12 +20,12 @@ default_args = {
     'catchup': False
 }
 
-with DAG(dag_id='core-dag',
-             default_args=default_args,
-             schedule_interval='*/30 * * * *', ) as dag:
-    parse_operator = PythonOperator(
-        task_id='parse_files',
-        provide_context=True,
-        python_callable=process,
-        dag=dag,
-    )
+with DAG(   dag_id='core-dag',
+            default_args=default_args,
+            schedule_interval='*/30 * * * *', ) as dag:
+            parse_operator = PythonOperator(
+            task_id='parse_files',
+            provide_context=True,
+            python_callable=process,
+            dag=dag,
+        )
