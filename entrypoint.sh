@@ -36,3 +36,5 @@ exec 6<&-
 
 /usr/local/bin/python /usr/local/airflow/dags/main.py 
 
+sleep 300
+
