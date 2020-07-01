@@ -25,7 +25,6 @@ def convert_to_json(data, filepath):
 
     product_dict = {}
     metadata = parsed['meta']
-    #dict_list.append(metadata)
 
     quick_path = filepath.replace(PDF_DIR, '')
     product_dict['Product Type'] = quick_path.split('/')[1]
@@ -34,18 +33,11 @@ def convert_to_json(data, filepath):
         product_dict['Author'] = metadata['Author']
     else: 
         product_dict['Author'] = ''
-        
-    #product_dict['Created-By'] = metadata['creator']
 
     if 'Content-Type' in metadata:
         product_dict['Content Type'] = metadata['Content-Type']
     else: 
         product_dict['Content-Type'] = ''
-        
-#   if 'Last-Save-Date' in metadata:
-#       product_dict['Date Published'] = metadata['Last-Save-Date']
-#   else: 
-#       product_dict['Date Published'] = ''
     
     product_dict['Date Published'] = datetime.now().isoformat()
         
@@ -85,12 +77,6 @@ def push_to_es(json_data):
     print(es_response)
     print("\n\n\n")
 
-def move_to_ingested_folder(filepath):
-
-    mv_dir = "_".join(str(datetime.now()).split())
-    os.system("mkdir " + INGESTED_DIR + "/" + mv_dir)
-    os.system("/usr/bin/mv "+ str(filepath) +" "+ INGESTED_DIR + "/" + mv_dir + "/")
-
 def process():
 
     files_on_error = []
@@ -109,8 +95,6 @@ def process():
                 json_data = convert_to_json(data, filepath)
 
                 push_to_es(json_data)
-
-                move_to_ingested_folder(filepath)
 
             except Exception as e:
                 print(e)

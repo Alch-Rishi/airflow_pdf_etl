@@ -3,14 +3,14 @@ export TIKA_SERVER_ADDR=tikaserver
 export TIKA_SERVER_PORT=9998
 export ELASTIC_SERVER_ADDR=elasticsearch
 export ELASTIC_SERVER_PORT=9200
-echo "testtststsssss---------------------------------------------------"
+
 if test -z "${TIKA_SERVER_ADDR}" -o -z "${TIKA_SERVER_PORT}"; then
     echo "You must link this container with TIKA first"
     exit 1
 fi
 
 if test -z "${ELASTIC_SERVER_ADDR}" -o -z "${ELASTIC_SERVER_PORT}"; then
-    echo "You must link this container with redis first"
+    echo "You must link this container with Elastic search first"
     exit 1
 fi
 
@@ -27,14 +27,12 @@ exec 6>&-
 exec 6<&-
 
 while ! exec 6<>/dev/tcp/${ELASTIC_SERVER_ADDR}/${ELASTIC_SERVER_PORT}; do
-    echo "$(date) - still trying to connect to elastic at ${TESTING_ELASTIC_URL}"
-    sleep 5
+    echo "$(date) - still trying to connect to Elastic search at ${TESTING_ELASTIC_URL}"
+    sleep 10
 done
 
 exec 6>&-
 exec 6<&-
-#airflow initdb
-#airflow webserver -p 8080 &
-#airflow scheduler
+
 /usr/local/bin/python /usr/local/airflow/dags/main.py 
-tail -f /dev/null &
+
