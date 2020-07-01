@@ -8,6 +8,9 @@ import os, shutil, sys
 import glob
 import re
 
+
+mv_dir = ''
+
 def convert_to_json(data, filepath):
 
     tika_response_content = get_tika_content(data)
@@ -77,7 +80,19 @@ def push_to_es(json_data):
     print(es_response)
     print("\n\n\n")
 
+def move_to_ingested_folder(filepath):
+
+    temp_dir_path = "'" + INGESTED_DIR + "'" + "/" + mv_dir
+
+    if not os.path.exists(temp_dir_path):
+        os.system("mkdir " + temp_dir_path)
+
+    os.system("/usr/bin/mv '"+ str(filepath) +"' "+ temp_dir_path)
+
 def process():
+
+    global mv_dir
+    mv_dir = str(datetime.now()).split()[0]
 
     files_on_error = []
 
@@ -95,6 +110,8 @@ def process():
                 json_data = convert_to_json(data, filepath)
 
                 push_to_es(json_data)
+
+                move_to_ingested_folder(filepath)
 
             except Exception as e:
                 print(e)
