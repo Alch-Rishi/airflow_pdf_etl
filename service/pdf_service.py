@@ -87,7 +87,7 @@ def move_to_ingested_folder(filepath):
     if not os.path.exists(temp_dir_path):
         os.system("mkdir " + temp_dir_path)
 
-    os.system("/usr/bin/mv '"+ str(filepath) +"' "+ temp_dir_path)
+    os.system("mv '"+ str(filepath) +"' "+ temp_dir_path)
 
 def process():
 
