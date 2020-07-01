@@ -86,6 +86,7 @@ def move_to_ingested_folder(filepath):
 
     if not os.path.exists(temp_dir_path):
         os.system("mkdir " + temp_dir_path)
+        os.system("chmod 777 " + temp_dir_path)
 
     os.system("mv '"+ str(filepath) +"' "+ temp_dir_path)
 
