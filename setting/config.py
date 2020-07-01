@@ -18,5 +18,5 @@ TIKA_SERVER = {
    "META_HEADERS": { 
         "Accept": "application/json"
     },
-    "TIMEOUT": 10
+    "TIMEOUT": 120
 }

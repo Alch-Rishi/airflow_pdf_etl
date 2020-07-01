@@ -80,15 +80,16 @@ def push_to_es(json_data):
     print(es_response)
     print("\n\n\n")
 
-def move_to_ingested_folder(filepath):
+def move_to_folder(filepath, move_dir):
 
-    temp_dir_path = "'" + INGESTED_DIR + "'" + "/" + mv_dir
-
-    if not os.path.exists(temp_dir_path):
+    temp_dir_path = move_dir + "/" + mv_dir
+    print(temp_dir_path)
+    if not (os.path.exists(temp_dir_path)):
         os.system("mkdir " + temp_dir_path)
         os.system("chmod 777 " + temp_dir_path)
 
     os.system("mv '"+ str(filepath) +"' "+ temp_dir_path)
+
 
 def process():
 
@@ -112,11 +113,13 @@ def process():
 
                 push_to_es(json_data)
 
-                move_to_ingested_folder(filepath)
+                move_to_folder(filepath, INGESTED_DIR)
 
             except Exception as e:
                 print(e)
                 files_on_error.append(filepath)
     
     if len(files_on_error) > 0:
-        raise Exception("Error occured for files:- " + ",".join(files_on_error))
+        print("Error occured for files:- " + ",".join(files_on_error))
+        for error_file_path in files_on_error:
+            move_to_folder(error_file_path, ERROR_ON_INGESTION_DIR)
