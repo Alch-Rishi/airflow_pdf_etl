@@ -33,8 +33,10 @@ done
 
 exec 6>&-
 exec 6<&-
-#airflow initdb
-#airflow webserver -p 8080 &
-#airflow scheduler
-/usr/local/bin/python /usr/local/airflow/dags/main.py 
+echo "hello"
+whoami
+airflow initdb
+airflow webserver  &
+airflow scheduler
+#/usr/local/bin/python /usr/local/airflow/dags/main.py 
 tail -f /dev/null &

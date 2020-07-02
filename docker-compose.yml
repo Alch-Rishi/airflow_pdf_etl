@@ -1,17 +1,17 @@
-version: "2.1"
+version: "3.7"
 services:
   webserver:
     image: puckel/docker-airflow:latest
     restart: always
-    mem_limit: 2048m
-    entrypoint: /usr/local/airflow/dags/entrypoint.sh
+    entrypoint: /usr/local/etl/entrypoint.sh
     env_file:
       - .env
     environment:
       - LOAD_EX=n
       - EXECUTOR=Local
     volumes:
-      - .:/usr/local/airflow/dags
+      - /root/airflow_perosnal/airflow_pdf_etl/airflow:/usr/local/airflow
+      - /root/airflow_perosnal/airflow_pdf_etl:/usr/local/etl
       - ./requirements.txt:/requirements.txt
     ports:
       - "8080:8080"
