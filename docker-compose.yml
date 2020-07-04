@@ -44,6 +44,21 @@ services:
       interval: 60s
       timeout: 30s
       retries: 3
+  kibana:
+   image: docker.elastic.co/kibana/kibana:7.8.0
+   container_name: elasticsearch-tika
+   environment:
+     - ELASTICSEARCH_URL=http://elasticsearch:9200
+     - ELASTICSEARCH_HOST=elasticsearch
+     - ELASTICSEARCH_PORT=9200
+   ports:
+     - "5601:5601"
+   expose:
+     - "5601"
+   networks:
+     - mynet
+   depends_on:
+     - elasticsearch
 
 
   tikaserver:
