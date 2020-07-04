@@ -11,13 +11,15 @@ default_args = {
 
 pdf_dag = DAG('pdf_service_dag',
             catchup=False,
-            schedule_interval=timedelta(minutes=2),
+            # schedule_interval=timedelta(minutes=2),  # FOR TEST RUN
+            schedule_interval="@daily",         # Supports cron expressions for eg. "0/5 * * * *"" for every 5 minute
             default_args=default_args)
 
 
 email_dag = DAG('email_service_dag',
             catchup=False,
-            schedule_interval=timedelta(minutes=5),
+            # schedule_interval=timedelta(minutes=5),   # FOR TEST RUN
+            schedule_interval="@weekly",        # Supports cron expressions for eg. "0/5 * * * *"" for every 5 minute
             default_args=default_args)
 
 t1 = BashOperator(
