@@ -11,7 +11,8 @@ ELASTICSEARCH = {
     },
     "INDEX": "test",
     "DOC_TYPE": "pdf",
-    "TIMEOUT": 10
+    "TIMEOUT": 10,
+    "PREV_DAYS": 7
 }
 TIKA_SERVER = {
     "URL":"http://tikaserver:9998",
@@ -24,4 +25,10 @@ TIKA_SERVER = {
     },
 
     "TIMEOUT": 10
+}
+
+SMTP_SERVER = {
+    "URL":"",
+    "FROM":"",
+    "TO":[""]
 }
