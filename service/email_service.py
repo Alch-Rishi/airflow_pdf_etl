@@ -14,7 +14,7 @@ def prepare_and_send_email(count):
 
 def get_ingestion_count():
 
-    query_string = '{{"query": {{ "range" : {{ "Date Published" : {{"gte" : "now-{0}d","lte" : "now"}} }} }} }}'.format(ELASTICSEARCH['PREV_DAYS'])
+    query_string = '{{"size":1, "query": {{ "range" : {{ "Date Published" : {{"gte" : "now-{0}d","lte" : "now"}} }} }} }}'.format(ELASTICSEARCH['PREV_DAYS'])
     response = get_past_records(query_string)
 
     count = 0
@@ -26,7 +26,8 @@ def get_ingestion_count():
     data = response['data']
 
     if 'hits' in data:
-        count = data['hits']['total']
+        if 'value' in data['hits']['total']: count = data['hits']['total']['value']
+        else: count = data['hits']['total']
 
     return count
 
