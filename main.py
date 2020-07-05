@@ -12,11 +12,11 @@ def run():
     if not process_type:
         print("Process name is required. Please provide either email or pdf")
 
-    if process_type == "pdf": process
+    if process_type == "pdf": process()
 
-    if process_type == "pdf-error": move_remaining_error_files
+    if process_type == "pdf-error": move_remaining_error_files()
 
-    if process_type == "email": execute
+    if process_type == "email": execute()
 
 
 print("----- Starting Dag Run ---")
