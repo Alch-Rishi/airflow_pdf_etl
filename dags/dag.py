@@ -16,7 +16,7 @@ pdf_dag = DAG('pdf_service_dag',
             default_args=default_args)
 
 
-pdf_dag = DAG('email_service_dag',
+email_dag = DAG('email_service_dag',
             catchup=False,
             schedule_interval=timedelta(minutes=10),
             default_args=default_args)
@@ -35,10 +35,8 @@ t2 = BashOperator(
 
 t3 = BashOperator(
     task_id='email_for_ingested_data',
-    bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf',
-    dag=pdf_dag)
+    bash_command='/usr/local/bin/python /usr/local/airflow/main.py email',
+    dag=email_dag)
 
 
 t2.set_upstream(t1)
-
-t3.set_upstream(t1)
