@@ -14,7 +14,7 @@ def prepare_and_send_email(count):
 
 def get_ingestion_count():
 
-    query_string = '{{"query": {{ "range" : {{ "Date Published" : {{"gte" : now-{0}d,"lte" : now}} }} }} }}'.format(ELASTICSEARCH['PREV_DAYS'])
+    query_string = '{{"query": {{ "range" : {{ "Date Published" : {{"gte" : "now-{0}d","lte" : "now"}} }} }} }}'.format(ELASTICSEARCH['PREV_DAYS'])
     response = get_past_records(query_string)
 
     count = 0
