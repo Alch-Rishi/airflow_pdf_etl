@@ -12,7 +12,7 @@ def get_past_records(query_string):
 
     try:
         url = ELASTICSEARCH['URL'] + '/' + ELASTICSEARCH['INDEX'] + '/_search'
-        response = requests.get(url, headers=ELASTICSEARCH['HEADERS'], data=json.dumps(query_string))
+        response = requests.get(url, data=json.dumps(query_string))
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
         print("\n\n\n----- Es response for get past records--------")
