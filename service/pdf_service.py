@@ -108,8 +108,6 @@ def process():
 
     files_on_error = []
 
-    print(sys.argv)
-
     for filepath in get_files_to_read():
         print("\n\n----FILE-----")
         print(filepath)
@@ -140,5 +138,21 @@ def move_remaining_error_files():
     mv_dir = str(datetime.now()).split()[0]
 
     for filepath in get_files_to_read():
-        print("Moving error file.... " + str(filepath))
-        move_to_folder(filepath, ERROR_ON_INGESTION_DIR)
+        print("\n\n----FILE-----")
+        print(filepath)
+        print("------")
+
+        try: 
+            data = open(filepath, 'rb').read()
+
+            json_data = convert_to_json(data, filepath)
+
+            push_to_es(json_data)
+
+            move_to_folder(filepath, INGESTED_DIR)
+
+        except Exception as e:
+            print(e)
+            print("Moving error file.... " + str(filepath))
+            move_to_folder(filepath, ERROR_ON_INGESTION_DIR)
+
