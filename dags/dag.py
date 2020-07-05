@@ -25,11 +25,11 @@ t2 = BashOperator(
     dag=pdf_dag)
 
 
-pdf_dag = DAG('email_service_dag',
-            schedule_interval='*/5 * * * *',
-            default_args=default_args)
+# pdf_dag = DAG('email_service_dag',
+#             schedule_interval='*/5 * * * *',
+#             default_args=default_args)
 
-t1 = BashOperator(
-    task_id='email_for_ingested_data',
-    bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf',
-    dag=pdf_dag)
+# t3 = BashOperator(
+#     task_id='email_for_ingested_data',
+#     bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf',
+#     dag=pdf_dag)
