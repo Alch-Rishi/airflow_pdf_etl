@@ -17,7 +17,8 @@ pdf_dag = DAG('pdf_service_dag',
 
 
 pdf_dag = DAG('email_service_dag',
-            schedule_interval='*/10 * * * *',
+            catchup=False,
+            schedule_interval=timedelta(minutes=10),
             default_args=default_args)
 
 t1 = BashOperator(
