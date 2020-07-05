@@ -8,6 +8,8 @@ import json,sys
 
 def get_past_records(query_string):
 
+    print(query_string)
+
     try:
         url = ELASTICSEARCH['URL'] + '/' + ELASTICSEARCH['INDEX'] + '/_search'
         response = requests.get(url, headers=ELASTICSEARCH['HEADERS'], data=json.dumps(query_string))
