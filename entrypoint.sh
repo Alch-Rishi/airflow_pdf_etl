@@ -4,7 +4,7 @@ export TIKA_SERVER_PORT=9998
 export ELASTIC_SERVER_ADDR=elasticsearch
 export ELASTIC_SERVER_PORT=9200
 
-
+echo "------STARTING SCRIPT--------------------"
 airflow initdb
 airflow webserver &
 
@@ -21,32 +21,24 @@ fi
 export TESTING_TIKA_URL="tcp://${TIKA_SERVER_ADDR}:${TIKA_SERVER_PORT}"
 export TESTING_ELASTIC_URL="tcp://${ELASTIC_SERVER_ADDR}:${ELASTIC_SERVER_PORT}"
 
-# See http://tldp.org/LDP/abs/html/devref1.html for description of this syntax.
-# while ! exec 6<>/dev/tcp/${TIKA_SERVER_ADDR}/${TIKA_SERVER_PORT}; do
-#     echo "$(date) - still trying to connect to TIKA at ${TESTING_TIKA_URL}"
-#     sleep 5
-# done
+See http://tldp.org/LDP/abs/html/devref1.html for description of this syntax.
+while ! exec 6<>/dev/tcp/${TIKA_SERVER_ADDR}/${TIKA_SERVER_PORT}; do
+    echo "$(date) - still trying to connect to TIKA at ${TESTING_TIKA_URL}"
+    sleep 5
+done
 
-# exec 6>&-
-# exec 6<&-
+exec 6>&-
+exec 6<&-
 
-# while ! exec 6<>/dev/tcp/${ELASTIC_SERVER_ADDR}/${ELASTIC_SERVER_PORT}; do
-#     echo "$(date) - still trying to connect to Elastic search at ${TESTING_ELASTIC_URL}"
-#     sleep 10
-# done
+while ! exec 6<>/dev/tcp/${ELASTIC_SERVER_ADDR}/${ELASTIC_SERVER_PORT}; do
+    echo "$(date) - still trying to connect to Elastic search at ${TESTING_ELASTIC_URL}"
+    sleep 10
+done
 
-# exec 6>&-
-# exec 6<&-
-
-
-airflow unpause pdf_service_dag
-sleep 60
-airflow unpause email_service_dag
+exec 6>&-
+exec 6<&-
 
 airflow scheduler
-#/usr/local/bin/python /usr/local/airflow/dags/test.py 
 echo '----------------ENDING SCRIPT--------------------------'
 
-
-sleep 300
 
