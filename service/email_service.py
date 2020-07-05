@@ -21,7 +21,7 @@ def get_ingestion_count():
 
     if not response['status']:
         print(response)
-        raise Exception(response['error'])
+        return count
     
     data = response['data']
 
