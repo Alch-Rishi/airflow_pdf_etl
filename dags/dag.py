@@ -7,7 +7,7 @@ default_args = {
     'depends_on_past': False,
     'start_date': datetime(2020, 1, 1),
     'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    'retry_delay': timedelta(minutes=1),
 }
 
 pdf_dag = DAG('pdf_service_dag',
