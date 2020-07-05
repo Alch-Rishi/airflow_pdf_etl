@@ -4,6 +4,10 @@ export TIKA_SERVER_PORT=9998
 export ELASTIC_SERVER_ADDR=elasticsearch
 export ELASTIC_SERVER_PORT=9200
 
+
+airflow initdb
+airflow webserver &
+
 if test -z "${TIKA_SERVER_ADDR}" -o -z "${TIKA_SERVER_PORT}"; then
     echo "You must link this container with TIKA first"
     exit 1
@@ -35,8 +39,6 @@ exec 6>&-
 exec 6<&-
 
 
-airflow initdb
-airflow webserver &
 airflow schedular
 #/usr/local/bin/python /usr/local/airflow/dags/test.py 
 
