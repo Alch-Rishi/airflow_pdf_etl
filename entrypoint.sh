@@ -39,10 +39,11 @@ export TESTING_ELASTIC_URL="tcp://${ELASTIC_SERVER_ADDR}:${ELASTIC_SERVER_PORT}"
 # exec 6<&-
 
 
-airflow scheduler
+airflow scheduler &
 #/usr/local/bin/python /usr/local/airflow/dags/test.py 
 
 airflow unpause pdf_service_dag
+sleep 60
 airflow unpause email_service_dag
 
 sleep 300

@@ -12,13 +12,13 @@ default_args = {
 
 pdf_dag = DAG('pdf_service_dag',
             catchup=False,
-            schedule_interval=timedelta(minutes=5),
+            schedule_interval=timedelta(minutes=2),
             default_args=default_args)
 
 
 email_dag = DAG('email_service_dag',
             catchup=False,
-            schedule_interval=timedelta(minutes=10),
+            schedule_interval=timedelta(minutes=5),
             default_args=default_args)
 
 t1 = BashOperator(
