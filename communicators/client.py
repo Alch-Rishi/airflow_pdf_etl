@@ -9,7 +9,6 @@ import json,sys
 def get_past_records(query_string):
 
     try:
-        query_string = query_string.format(ELASTICSEARCH['PREV_DAYS'])
         url = ELASTICSEARCH['URL'] + '/' + ELASTICSEARCH['INDEX'] + '/_search'
         response = requests.get(url, headers=ELASTICSEARCH['HEADERS'], data=json.dumps(query_string))
         print("Response time " + str(response.elapsed.total_seconds()))

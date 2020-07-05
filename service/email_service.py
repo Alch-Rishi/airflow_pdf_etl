@@ -14,14 +14,20 @@ def prepare_and_send_email(count):
 
 def get_ingestion_count():
 
-    query_string = '{{"query": {{ "range" : {{ "age" : {{"gte" : now-{0}d,"lte" : now}} }} }} }}'
+    query_string = '{{"query": {{ "range" : {{ "Date Published" : {{"gte" : now-{0}d,"lte" : now}} }} }} }}'.format(ELASTICSEARCH['PREV_DAYS'])
     response = get_past_records(query_string)
 
     count = 0
 
-    if response['data']:
+    if not response['status']:
         print(response)
+        raise Exception(response['error'])
     
+    data = response['data']
+
+    if 'hits' in data:
+        count = data['hits']['total']
+
     return count
 
 def execute():

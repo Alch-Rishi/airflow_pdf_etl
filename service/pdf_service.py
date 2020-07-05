@@ -91,6 +91,16 @@ def move_to_folder(filepath, move_dir):
     os.system("mv '"+ str(filepath) +"' "+ temp_dir_path)
 
 
+def get_files_to_read():
+
+    files_to_read = []
+
+    for filepath in glob.iglob(PDF_DIR + '**/**', recursive=True):
+        if os.path.isfile(filepath): files_to_read.append(filepath)
+
+    return files_to_read
+
+
 def process():
 
     global mv_dir
@@ -100,26 +110,35 @@ def process():
 
     print(sys.argv)
 
-    for filepath in glob.iglob(PDF_DIR + '**/**', recursive=True):
-        if os.path.isfile(filepath):
-            print("\n\n----FILE-----")
-            print(filepath)
-            print("------")
+    for filepath in get_files_to_read():
+        print("\n\n----FILE-----")
+        print(filepath)
+        print("------")
 
-            try: 
-                data = open(filepath, 'rb').read()
+        try: 
+            data = open(filepath, 'rb').read()
 
-                json_data = convert_to_json(data, filepath)
+            json_data = convert_to_json(data, filepath)
 
-                push_to_es(json_data)
+            push_to_es(json_data)
 
-                move_to_folder(filepath, INGESTED_DIR)
+            move_to_folder(filepath, INGESTED_DIR)
 
-            except Exception as e:
-                print(e)
-                files_on_error.append(filepath)
+        except Exception as e:
+            print(e)
+            files_on_error.append(filepath)
     
     if len(files_on_error) > 0:
         print("Error occured for files:- " + ",".join(files_on_error))
-        for error_file_path in files_on_error:
-            move_to_folder(error_file_path, ERROR_ON_INGESTION_DIR)
+        raise Exception("Error occured for files:- " + ",".join(files_on_error))
+
+
+
+def move_remaining_error_files():
+
+    global mv_dir
+    mv_dir = str(datetime.now()).split()[0]
+
+    for filepath in get_files_to_read():
+        print("Moving error file.... " + str(filepath))
+        move_to_folder(filepath, ERROR_ON_INGESTION_DIR)
