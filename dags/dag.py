@@ -6,16 +6,17 @@ default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
     'start_date': datetime(2020, 1, 1),
-    'retries': 3,
+    'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
 
 pdf_dag = DAG('pdf_service_dag',
-            schedule_interval='*/5 * * * *',
+            schedule_interval=timedelta(minutes=5),
             default_args=default_args)
 
 t1 = BashOperator(
     task_id='parse_and_push_to_es',
+    retries=3,
     bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf',
     dag=pdf_dag)
 
@@ -35,4 +36,4 @@ t2 = BashOperator(
 #     dag=pdf_dag)
 
 
-t1 >> t2
+t2.set_upstream(t1)
