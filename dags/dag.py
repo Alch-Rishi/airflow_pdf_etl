@@ -39,4 +39,4 @@ t3 = BashOperator(
     dag=email_dag)
 
 
-t2.set_upstream(t1)
+t1 >> t2
