@@ -18,4 +18,5 @@ def run():
     if process_type == "email": execute
 
 
+print("----- Starting Dag Run ---")
 run()
