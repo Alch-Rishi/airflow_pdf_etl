@@ -11,7 +11,7 @@ services:
       - LOAD_EX=n
       - EXECUTOR=Local
     volumes:
-      - .:/usr/local/airflow/dags
+      - .:/usr/local/airflow/
       - ./requirements.txt:/requirements.txt
     ports:
       - "8080:8080"

@@ -1,5 +1,5 @@
 
-ROOT_DIR = "/usr/local/etl/"
+ROOT_DIR = "/usr/local/airflow/"
 PDF_DIR = ROOT_DIR + "/data"
 
 INGESTED_DIR = ROOT_DIR + "/ingested_data"

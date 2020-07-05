@@ -16,12 +16,12 @@ pdf_dag = DAG('pdf_service_dag',
 
 t1 = BashOperator(
     task_id='parse_and_push_to_es',
-    bash_command='/usr/local/bin/python /usr/local/airflow/dags/main.py pdf',
+    bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf',
     dag=pdf_dag)
 
 t2 = BashOperator(
     task_id='move_error_files',
-    bash_command='/usr/local/bin/python /usr/local/airflow/dags/main.py pdf-error',
+    bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf-error',
     dag=pdf_dag)
 
 
@@ -31,5 +31,5 @@ pdf_dag = DAG('email_service_dag',
 
 t1 = BashOperator(
     task_id='email_for_ingested_data',
-    bash_command='/usr/local/bin/python /usr/local/airflow/dags/main.py pdf',
+    bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf',
     dag=pdf_dag)

@@ -34,7 +34,11 @@ done
 exec 6>&-
 exec 6<&-
 
-/usr/local/bin/python /usr/local/airflow/dags/test.py 
+
+airflow initdb
+airflow webserver &
+airflow schedular
+#/usr/local/bin/python /usr/local/airflow/dags/test.py 
 
 sleep 300
 
