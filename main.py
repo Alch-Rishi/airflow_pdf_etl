@@ -6,6 +6,7 @@ import sys
 
 def run():
 
+    print("Arg recieved " + str(sys.argv))
     process_type = sys.argv[1]
 
     if not process_type:
