@@ -4,7 +4,7 @@ services:
     image: puckel/docker-airflow:latest
     restart: always
     mem_limit: 2048m
-    entrypoint: /usr/local/airflow/dags/entrypoint.sh
+    entrypoint: /usr/local/airflow/entrypoint.sh
     env_file:
       - .env
     environment:
