@@ -33,3 +33,6 @@ t2 = BashOperator(
 #     task_id='email_for_ingested_data',
 #     bash_command='/usr/local/bin/python /usr/local/airflow/main.py pdf',
 #     dag=pdf_dag)
+
+
+t1 >> t2
