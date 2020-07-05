@@ -13,7 +13,7 @@ def get_past_records(query_string):
         response = requests.get(url, headers=ELASTICSEARCH['HEADERS'], data=json.dumps(query_string))
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
-        print("\n\n\n----- Es response--------")
+        print("\n\n\n----- Es response for get past records--------")
         print(response.content)
         print(response)
         elastic_response = response.json()
@@ -32,7 +32,7 @@ def publish_to_es(payload):
         response = requests.post(url, headers=ELASTICSEARCH['HEADERS'], data=json.dumps(payload), timeout=ELASTICSEARCH['TIMEOUT']) 
         print("Response time " + str(response.elapsed.total_seconds()))
         sts_cd = response.status_code
-        print("\n\n\n----- Es response--------")
+        print("\n\n\n----- Es response for document push--------")
         print(response.content)
         print(response)
         elastic_response = response.json()

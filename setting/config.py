@@ -1,7 +1,7 @@
 
 ROOT_DIR = "/usr/local/etl/"
 PDF_DIR = ROOT_DIR + "/data"
-# PDF_DIR = "/root/test"
+
 INGESTED_DIR = ROOT_DIR + "/ingested_data"
 ERROR_ON_INGESTION_DIR = ROOT_DIR + "/error_on_ingestion"
 ELASTICSEARCH = {
